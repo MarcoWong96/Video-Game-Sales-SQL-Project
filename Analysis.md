@@ -1,4 +1,4 @@
-#Analysis
+# Analysis
 
 This is my analysis on the global video game sales dataset. This project is designed to answer a few questions (from Kaggle):
 
@@ -33,7 +33,7 @@ The **Data Dictionary** is as follows:
 | Global        | The total number of units sold worldwide, in millions. (Numerical)                                     |
 | Review        | The review score of the game, on a scale of 1 to 10. (Numerical)                                       |
 
-###Exploring the Dataset
+### Exploring the Dataset
 
 
 First, we look at the first 10 listings of the dataset.
@@ -162,7 +162,7 @@ COUNT(*) > 1;
 
 After the cleaning process, we can start our initial analysis.
 
-##Initial Analysis into feature distribution for categorical variables
+## Initial Analysis into feature distribution for categorical variables
 
 First, we look at the distribution of the platforms.
 
