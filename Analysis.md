@@ -785,8 +785,16 @@ ORDER BY NewPublisher, Review DESC
 - All the games are of the same genre.
 - If you enjoy those genres, it can be a good idea to pick games from these two publishers. Only 4 games are below the average per review.
 
+### Publisher Conclusion
+EA games and Nintendo are the biggest publishers as they produce the most games, as well as have the highest global aggregate sales. However, not all their games are well reviewed. On average, they are 12th and 17th in terms of average reviews for publishers with 5 or more games. Diving deeper into some of the other top companies by review, we can see that they generally produce games of one genre. For MTV, they only have 'rock' music games. For Square, they primarily create role playing games. Nintendo and EA have games more spread out by genre, although their seem to be leaders in the sports genre, which we can investigate in next.
+
+**Actionable Insights**
+For consumers, it may be wise to look at the genre for games before purchasing. For example, if you wanted to buy a game, it would be very useful to know which genre of game you would like. After deciding on a genre, I would look at top publishers in said genre, and try a game from the top publisher.
+
 Stepping away from publishers, let's take a deeper dive into one of the genres - sports.
 
+
+### Diving deeper into sports
 ```SQL
 # Take a big picture view of Sports games
 SELECT
@@ -975,4 +983,125 @@ ORDER BY NewYear;
 **Insights:**
 - There seems to be a golden period from 1997 to 2006, where all reviews were over the average (78.84 in Sports). Most years also had double digit number of games produced too.
 - 2007 to 2010 had much lower average reviews as every year had below average reviews, but many more games were produced. The sum of global sales spiked significantly too in this time period.
+
+With games in this genre, games are largely segregated by the 'sport'. Players who like Football games, may only like football gamesa and not basketball games. This creates difficulty in comparing all the games side by side. In essence, every game with different sports is in a genre of it's own. Let's take a look at Football or Soccer games. European Football is the world's most popular sport, so perhaps investigating into this would draw merit.
+
+```SQL
+# Filtering for all European soccer games
+SELECT
+`Game Title`,
+`Global`,
+NewPublisher,
+NewYear,
+Review
+FROM sales
+WHERE `Game Title` REGEXP '.*SOCCER.*'
+ORDER BY Review DESC;
+```
+
+**Result:**
+| Game Title                                       | Global | New Publisher                        | New Year | Review  |
+|--------------------------------------------------|--------|--------------------------------------|----------|---------|
+| World Soccer Winning Eleven 7 International       | 2.9    | Konami Digital Entertainment        | 2003     | 92.97   |
+| World Soccer Winning Eleven 8 International       | 3.85   | Konami Digital Entertainment        | 2004     | 90.83   |
+| World Soccer Winning Eleven 6 International       | 2.99   | Konami Digital Entertainment        | 2002     | 90.54   |
+| World Soccer Winning Eleven 9                    | 4.06   | Konami Digital Entertainment        | 2005     | 88.49   |
+| World Soccer Winning Eleven 9 (JP & Others sales)| 1.2    | Konami Digital Entertainment        | 2005     | 88.49   |
+| FIFA Soccer 09                                   | 1.92   | Electronic Arts                     | 2008     | 88      |
+| FIFA Soccer 10                                   | 2.57   | Electronic Arts                     | 2009     | 87      |
+| Winning Eleven: Pro Evolution Soccer 2007         | 4.39   | Konami Digital Entertainment        | 2006     | 86.31   |
+| FIFA Soccer 11                                   | 3.48   | Electronic Arts                     | 2010     | 86      |
+| FIFA Soccer 11                                   | 4.91   | Electronic Arts                     | 2010     | 86      |
+| FIFA Soccer 09                                   | 2.51   | Electronic Arts                     | 2008     | 86      |
+| FIFA Soccer 10                                   | 3.53   | Electronic Arts                     | 2009     | 86      |
+| Pro Evolution Soccer                             | 1.75   | Konami Digital Entertainment        | 2001     | 85      |
+| FIFA Soccer 09                                   | 2.28   | Electronic Arts                     | 2008     | 85      |
+| FIFA Soccer 2005                                 | 0.97   | Electronic Arts                     | 2004     | 84      |
+| FIFA Soccer 12                                   | 6.32   | Electronic Arts                     | 2011     | 84      |
+| FIFA Soccer 2005                                 | 3.7    | Electronic Arts                     | 2004     | 84      |
+| FIFA Soccer 12                                   | 4.06   | Electronic Arts                     | 2011     | 84      |
+| FIFA Soccer 09                                   | 1.31   | Electronic Arts                     | 2008     | 83      |
+| Worldwide Soccer Manager 2008                    | 1.11   | Russel                               | 2007     | 82.2    |
+| FIFA 07 Soccer                                   | 1.2    | Electronic Arts                     | 2006     | 82      |
+| FIFA Soccer 08                                   | 1.34   | Electronic Arts                     | 2007     | 82      |
+| PES 2009: Pro Evolution Soccer                   | 2.5    | Konami Digital Entertainment        | 2008     | 82      |
+| Pro Evolution Soccer 2011                        | 2.34   | Konami Digital Entertainment        | 2010     | 82      |
+| Pro Evolution Soccer 2012                        | 2.12   | Konami Digital Entertainment        | 2011     | 82      |
+| FIFA Soccer 08                                   | 1.71   | Electronic Arts                     | 2007     | 82      |
+| Pro Evolution Soccer 2010                        | 1.57   | Konami Digital Entertainment        | 2009     | 82      |
+| Worldwide Soccer Manager 2009                    | 1.14   | Sega                                 | 2008     | 81.95   |
+| FIFA 07 Soccer                                   | 4.11   | Electronic Arts                     | 2006     | 81.4    |
+| Winning Eleven: Pro Evolution Soccer 2007         | 0.86   | Konami Digital Entertainment        | 2006     | 81.23   |
+| FIFA Soccer 13                                   | 4.48   | Electronic Arts                     | 2012     | 81      |
+| Pro Evolution Soccer 2008                        | 3.63   | Konami Digital Entertainment        | 2007     | 81      |
+| FIFA Soccer 2004                                 | 3.49   | Unknown                              |          | 81      |
+| FIFA Soccer 2003                                 | 3.4    | Electronic Arts                     | 2002     | 81      |
+| FIFA Soccer 08                                   | 3.14   | Electronic Arts                     | 2007     | 81      |
+| FIFA Soccer 13                                   | 6.16   | Electronic Arts                     | 2012     | 80      |
+| FIFA Soccer 10                                   | 1.1    | Electronic Arts                     | 2009     | 80      |
+| FIFA Soccer 11                                   | 1.05   | Electronic Arts                     | 2010     | 80      |
+| Winning Eleven: Pro Evolution Soccer 2007 (All Region sales)| 1 | Konami Digital Entertainment | 2006 | 79.13 |
+| FIFA Soccer 10                                   | 1.7    | Electronic Arts                     | 2009     | 79      |
+| FIFA Soccer 08                                   | 1.34   | Electronic Arts                     | 2007     | 79      |
+| Pro Evolution Soccer 2008                        | 1.19   | Konami Digital Entertainment        | 2008     | 79      |
+| FIFA Soccer 06                                   | 4.21   | Electronic Arts                     | 2005     | 78.73   |
+| PES 2009: Pro Evolution Soccer                   | 2.08   | Konami Digital Entertainment        | 2008     | 78      |
+| FIFA Soccer 09 All-Play                          | 0.86   | Electronic Arts                     | 2008     | 78      |
+| Pro Evolution Soccer 2013                        | 1.1    | Konami Digital Entertainment        | 2012     | 77      |
+| Pro Evolution Soccer 2008                        | 0.98   | Konami Digital Entertainment        | 2008     | 77      |
+| Pro Evolution Soccer 2008                        | 1.07   | Konami Digital Entertainment        | 2007     | 75      |
+| PES 2009: Pro Evolution Soccer                   | 0.97   | Konami Digital Entertainment        | 2008     | 75      |
+| FIFA Soccer 11                                   | 1.05   | Electronic Arts                     | 2010     | 74      |
+| World Tour Soccer                                | 1.06   | Sony Computer Entertainment          | 2005     | 73.26   |
+| FIFA Soccer World Championship                   | 0.83   | Electronic Arts                     | 2000     | 73      |
+| FIFA Soccer 10                                  
+
+**Insights:**
+- Almost all these games are exclusively from Konami and Electronic Arts.
+- Konami has the 5 most highly reviewed games. 
+- EA seems to have larger global game sales per game.
+
+Let's take a look at some aggregate scores from the publishers.
+
+```SQL
+# Find averages, sums for each publisher who makes soccer games
+SELECT
+A.NewPublisher,
+COUNT(*) AS Total_Games,
+AVG(Review) AS Average_Review,
+AVG(Global) AS Average_Global_Sales,
+MAX(Global) AS Highest_Global_Sales,
+MAX(Review) AS Best_Review,
+MIN(Review) AS Lowest_Review
+FROM
+(
+	SELECT
+	`Game Title`,
+	`Global`,
+	NewPublisher,
+	NewYear,
+	Review
+	FROM sales
+	WHERE `Game Title` REGEXP '.*SOCCER.*'
+	ORDER BY Review DESC
+) AS A
+GROUP BY A.NewPublisher;
+```
+
+**Results:**
+
+| New Publisher                  | Total Games | Average Review     | Average Global Sales | Highest Global Sales | Best Review | Lowest Review |
+|---------------------------------|-------------|-------------------- |-----------------------|----------------------|-------------|---------------|
+| Electronic Arts                 | 31          | 80.97              | 2.52                 | 6.32                 | 88          | 71            |
+| Konami Digital Entertainment    | 22          | 81.59              | 2.11                 | 4.39                 | 92.97       | 71            |
+| Unknown                         | 1           | 81                 | 3.49                 | 3.49                 | 81          | 81            |
+| Nintendo                        | 1           | 51                 | 1.96                 | 1.96                 | 51          | 51            |
+| Sega                            | 1           | 81.95              | 1.14                 | 1.14                 | 81.95       | 81.95         |
+| Russel                          | 1           | 82.2               | 1.11                 | 1.11                 | 82.2        | 82.2          |
+| Sony Computer Entertainment     | 1           | 73.26              | 1.06                 | 1.06                 | 73.26       | 73.26         |
+
+**Insights:** 
+- Electronic Arts has the most games, highest global sales for one game and highest average global sales per game.
+- Konami has the best reviewed game, higher review average per game compared to EA, and the best reviewed game.
+
 

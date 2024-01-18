@@ -428,3 +428,37 @@ FROM sales
 WHERE Genre = 'Sports'
 GROUP BY NewYear
 ORDER BY NewYear;
+
+# Filtering for all European Football games
+SELECT
+`Game Title`,
+`Global`,
+NewPublisher,
+NewYear,
+Review
+FROM sales
+WHERE `Game Title` REGEXP '.*SOCCER.*'
+ORDER BY Review DESC;
+
+# Find averages, sums for each publisher who makes soccer games
+SELECT
+A.NewPublisher,
+COUNT(*) AS Total_Games,
+AVG(Review) AS Average_Review,
+AVG(Global) AS Average_Global_Sales,
+MAX(Global) AS Highest_Global_Sales,
+MAX(Review) AS Best_Review,
+MIN(Review) AS Lowest_Review
+FROM
+(
+	SELECT
+	`Game Title`,
+	`Global`,
+	NewPublisher,
+	NewYear,
+	Review
+	FROM sales
+	WHERE `Game Title` REGEXP '.*SOCCER.*'
+	ORDER BY Review DESC
+) AS A
+GROUP BY A.NewPublisher;
