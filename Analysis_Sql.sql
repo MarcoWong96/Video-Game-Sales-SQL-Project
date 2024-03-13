@@ -462,3 +462,43 @@ FROM
 	ORDER BY Review DESC
 ) AS A
 GROUP BY A.NewPublisher;
+
+# Part 2 - Looking into most popular genre in US
+
+# Calculating genre sale totals in each region
+SELECT
+Genre,
+SUM(`North America`) AS US_Total,
+SUM(Europe) AS Europe_Total,
+SUM(Japan) AS Japan_Total,
+SUM(`Rest of World`) AS RoW_Total,
+SUM(`Global`) AS Global_Total
+FROM sales
+GROUP BY Genre
+ORDER BY SUM(`Global`) DESC;
+
+# Calculating percentage values of each market share
+SELECT
+Genre,
+SUM(`North America`)/ SUM(Global) * 100 AS US_Share,
+SUM(Europe)/ SUM(Global) * 100 AS Europe_Share,
+SUM(Japan)/ SUM(Global) * 100 AS Japan_Share,
+SUM(`Rest of World`)/ SUM(Global) * 100 AS RoW_Share
+FROM sales
+GROUP BY Genre
+ORDER BY SUM(`Global`) DESC;
+
+# Looking into role playing games and the market distribution
+SELECT
+`Game Title`,
+Platform,
+NewPublisher,
+`North America`,
+Europe,
+Japan,
+`Rest of World`,
+Global
+FROM sales
+WHERE Genre = 'Role-Playing'
+ORDER BY Global DESC
+LIMIT 15;

@@ -17,6 +17,7 @@ Using the 'Global' column, you could observe which games have been globally succ
 **5. Platform Insight:**
 The platform on which a particular game is available is another significant factor (e.g., PC, PS4, Xbox). By utilizing the data contained in this dataset regarding platforms, one may learn how platform choice impacts global sales as well as discern any correlation between preferred platform types among specific regions.
 
+
 The **Data Dictionary** is as follows:
 | Column Name   | Description                                                                                           |
 |---------------|-------------------------------------------------------------------------------------------------------|
@@ -1103,5 +1104,119 @@ GROUP BY A.NewPublisher;
 **Insights:** 
 - Electronic Arts has the most games, highest global sales for one game and highest average global sales per game.
 - Konami has the best reviewed game, higher review average per game compared to EA, and the best reviewed game.
+- All other companies have only created one game.
+
+As someone that played Soccer games from both of these publishers, it has been long known that EA and Konami has produced the best European football games worldwide. Personally, I have played Konami's Pro Evolution Soccer (PES) series more than EA's FIFA series. It is very interesting to see that Konami has a higher average review since I believe PES had better gameplay than FIFA. It is also not surprising that FIFA has higher global sales as their multiplayer platform has always been superior.
+
+**Actionable Insights**
+- For the best reviewed European Football games, purchase games from Konami.
+- If you want the game with highest global sales, purchase games from EA. 
+- That being said, there is really no other choice.
 
 
+# Part 2: Market analysis
+
+In this next section, we will look into which genre of games dominate each market, both by absolute numbers and relative numbers. This analysis will allow game makers to know which markets to focus on for their specific games.
+
+```SQL
+SELECT
+Genre,
+SUM(`North America`) AS US_Total,
+SUM(Europe) AS Europe_Total,
+SUM(Japan) AS Japan_Total,
+SUM(`Rest of World`) AS RoW_Total,
+SUM(`Global`) AS Global_Total
+FROM sales
+GROUP BY Genre
+ORDER BY SUM(`Global`) DESC;
+```
+
+**Results**
+| Genre         | US Total | Europe Total | Japan Total | RoW Total | Global Total |
+|---------------|----------|--------------|-------------|-----------|--------------|
+| Sports        | 354.62   | 221.09       | 56.47       | 71.06     | 703.11       |
+| Action        | 320.88   | 205.91       | 45.66       | 64.87     | 637.27       |
+| Platform      | 317.03   | 139.54       | 104.17      | 34.42     | 595.24       |
+| Shooter       | 333.40   | 155.89       | 14.22       | 53.84     | 557.20       |
+| Role-Playing  | 197.54   | 100.90       | 169.32      | 28.53     | 496.20       |
+| Racing        | 214.35   | 151.62       | 43.79       | 42.08     | 451.80       |
+| Misc          | 205.46   | 131.48       | 50.78       | 38.35     | 426.12       |
+| Fighting      | 133.07   | 63.49        | 34.01       | 18.44     | 249.00       |
+| Adventure     | 116.83   | 76.88        | 27.01       | 18.80     | 239.45       |
+| Simulation    | 101.13   | 64.08        | 24.31       | 15.53     | 205.14       |
+| Puzzle        | 60.72    | 18.58        | 25.00       | 4.35      | 108.65       |
+| Strategy      | 45.48    | 18.17        | 10.72       | 3.47      | 77.80        |
+
+
+**Insights**
+- The genre with the most global sales are: Sports, Action and Platform games.
+- By absolute numbers, US sales are much higher than the other markets.
+- Japanese market has abnormally higher sales in Platform and Role playing games.
+- Shooter games seems to be more popular in US compared to other regions.
+
+Instead of absolute numbers, let's look at the above numbers in relative market share across different regions.
+
+**Results**
+| Genre         | US Share (%) | Europe Share (%) | Japan Share (%) | RoW Share (%) |
+|---------------|--------------|------------------|-----------------|---------------|
+| Sports        | 50.44        | 31.44            | 8.03            | 10.11         |
+| Action        | 50.35        | 32.31            | 7.16            | 10.18         |
+| Platform      | 53.26        | 23.44            | 17.50           | 5.78          |
+| Shooter       | 59.83        | 27.98            | 2.55            | 9.66          |
+| Role-Playing  | 39.81        | 20.33            | 34.12           | 5.75          |
+| Racing        | 47.44        | 33.56            | 9.69            | 9.31          |
+| Misc          | 48.22        | 30.86            | 11.92           | 9.00          |
+| Fighting      | 53.44        | 25.50            | 13.66           | 7.41          |
+| Adventure     | 48.79        | 32.11            | 11.28           | 7.85          |
+| Simulation    | 49.30        | 31.24            | 11.85           | 7.57          |
+| Puzzle        | 55.89        | 17.10            | 23.01           | 4.00          |
+| Strategy      | 58.46        | 23.35            | 13.78           | 4.46          |
+
+**Insights**
+- Depending on what genre of game you create, it may be more beneficial to market the game more heavily to different markets. There may be more research required to understand the discrepancy in market share across different markets for a certain genre. For example, shooters only have a 2.55% market share in Japan. Is this because games are not well advertised there, or people there are not interested in these types of games, or potentially government regulation.
+- US has roughly 50% of the market share for most genres.
+
+Let's take a closer look in the role playing market. If a company were to release a role playing game, let's take a look at the current market situation.
+
+```SQL
+SELECT
+`Game Title`,
+Platform,
+NewPublisher,
+`North America`,
+Europe,
+Japan,
+`Rest of World`,
+Global
+FROM sales
+WHERE Genre = 'Role-Playing'
+ORDER BY Global DESC
+LIMIT 15;
+```
+
+**Results**
+| Game Title                                       | Platform | NewPublisher                | North America | Europe | Japan | Rest of World | Global |
+|--------------------------------------------------|----------|-----------------------------|---------------|--------|-------|---------------|--------|
+| Pokémon Gold / Silver Version                    | GB       | Nintendo                    | 9.00          | 6.18   | 7.20  | 0.71          | 23.10  |
+| Pokémon Diamond / Pearl Version                  | DS       | Nintendo                    | 6.32          | 4.34   | 6.04  | 1.35          | 18.05  |
+| Pokémon Ruby / Sapphire Version                  | GBA      | Nintendo                    | 6.06          | 3.90   | 5.38  | 0.50          | 15.85  |
+| Pokémon Yellow: Special Pikachu Edition          | GB       | Nintendo                    | 5.89          | 5.04   | 3.12  | 0.59          | 14.64  |
+| Pokémon Black / White Version                    | DS       | Nintendo                    | 5.30          | 2.81   | 5.64  | 0.89          | 14.64  |
+| Pokémon Heart Gold / Soul Silver Version         | DS       | Nintendo                    | 4.20          | 2.59   | 3.96  | 0.77          | 11.51  |
+| Pokémon FireRed / LeafGreen Version              | GBA      | Nintendo                    | 4.34          | 2.65   | 3.15  | 0.35          | 10.49  |
+| Final Fantasy VII                                | PS       | Sony Computer Entertainment | 3.01          | 2.47   | 3.28  | 0.96          | 9.72   |
+| Final Fantasy X                                  | PS2      | Sony Computer Entertainment | 2.91          | 2.07   | 2.73  | 0.33          | 8.05   |
+| Final Fantasy VIII                               | PS       | Square                      | 2.28          | 1.72   | 3.63  | 0.23          | 7.86   |
+| Pokémon Platinum Version                         | DS       | Nintendo                    | 2.68          | 1.62   | 2.69  | 0.53          | 7.52   |
+| The Elder Scrolls V: Skyrim                      | X360     | Bethesda Softworks          | 3.96          | 2.36   | 0.09  | 0.71          | 7.11   |
+| Pokémon Emerald Version                          | GBA      | Nintendo                    | 2.57          | 1.58   | 2.06  | 0.21          | 6.41   |
+| Pokémon Crystal Version                          | GB       | Nintendo                    | 2.55          | 1.56   | 1.29  | 0.99          | 6.39   |
+| Pokemon Black / White Version 2                  | DS       | Nintendo                    | 1.99          | 1.09   | 2.97  | 0.34          | 6.38   |
+
+
+**Insights**
+- This market is dominated by Nintendo, notably the pokemon games.
+- Most of the Pokemon games have similar sales in North America and Japan.
+- Few other games such as Final Fantasy series also have similar sales in North America and Japan.
+
+The top selling games is inline with our previous findings that North America and Japan have similar sales in the Role Playing genre. Thus, any game created in this space should be properly marketed to the Japanese market and adjusted accordingly. Adjustments may include advertisements, cultural elements in game, game availability in Japan.
